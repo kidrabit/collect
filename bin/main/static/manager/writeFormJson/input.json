@@ -1,0 +1,39 @@
+{
+	"beats" : {
+		"port" : { "type" : "text", "data" : "number" }
+	},
+	"jdbc" : {
+		"jdbc_driver_library" : { "type" : "text", "data" : "string" },
+		"jdbc_driver_class" : { "type" : "text", "data" : "string" },
+		"jdbc_connection_string" : { "type" : "text", "data" : "string" },
+		"jdbc_user" : { "type" : "text" , "data" : "string" },
+		"jdbc_password" : { "type" : "text", "data" : "string" },
+		"schedule" : { "type" : "text", "data" : "string" },
+		"statement" : { "type" : "text", "data" : "string" },
+		"parameters" : { "type" : "hash", "data" : "hash" },
+		"jdbc_pool_timeout" : { "type" : "text", "data" : "number" },
+		"jdbc_paging_enabled" : { "type" : "checkbox", "data" : "boolean" },
+		"jdbc_page_size" : { "type" : "text", "data" : "number" }
+	},
+	"twitter" : {
+		"consumer_key" : { "type" : "text", "data" : "string" },
+		"consumer_secret" : { "type" : "text", "data" : "string" },
+		"oauth_token" : { "type" : "text", "data" : "string" },
+		"oauth_token_secret" : { "type" : "text", "data" : "string" },
+		"keywords" : { "type" : "text", "data" : "array"}
+	},
+	"file" : {
+		"path" : { "type" : "text", "data" : "array" },
+		"start_position" : { "type" : "text", "data" : "string" },
+		"sincedb_path" : { "type" : "text", "data" : "string" },
+		"stat_interval " : { "type" : "text", "data" : "number" }
+	},
+	"elasticsearch" : {
+		"hosts" : { "type" : "text", "data" : "string" },
+		"index" : { "type" : "text", "data" : "string" },
+		"query" : { "type" : "text", "data" : "string_single_quote"},
+		"size" : { "type" : "text", "data" : "number" },
+		"scroll" : { "type" : "text", "data" : "string"},
+		"docinfo" : { "type" : "checkbox", "data" : "boolean"}
+	}
+}

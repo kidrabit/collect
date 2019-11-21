@@ -1,0 +1,23 @@
+{
+	"csv" : {
+		"fields" : { "type" : "text", "data" : "array" },
+		"path" : { "type" : "text", "data" : "string" },
+		"csv_option" : { "type" : "hash", "data" : "hash" }
+	},
+	"jdbc" : {
+		"driver_jar_path" : { "type" : "text", "data" : "string" },
+		"driver_class" : { "type" : "text", "data" : "string" },
+		"connection_string" : { "type" : "text", "data" : "string" },
+		"statement" : { "type" : "text", "data" : "array" }
+	},
+	"mongodb" : {
+		"collection" : { "type" : "text", "data" : "string" },
+		"database" : { "type" : "text", "data" : "string" },
+		"uri" : { "type" : "text", "data" : "string" },
+		"codec" : { "type" : "text", "data" : "string" }
+	},
+	"elasticsearch" : {
+		"hosts" : { "type" : "text", "data" : "string" },
+		"index" : { "type" : "text", "data" : "string" }
+	}
+}

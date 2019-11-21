@@ -1,0 +1,4 @@
+logstash:
+ path: C:\Users\rnd\Downloads\logstash-7.0.0\logstash-7.0.0\bin\logstash.bat        
+file:
+ name: logstash_rdb.conf

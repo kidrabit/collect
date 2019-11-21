@@ -1,0 +1,12 @@
+{
+	"csv" : {
+		"separator" : { "type" : "text", "data" : "string" },
+		"columns" : { "type" : "text", "data" : "array" },
+		"skip_empty_columns" : { "type" : "checkbox", "data" : "boolean" },
+		"skip_empty_rows" : { "type" : "checkbox", "data" : "boolean" }
+	},
+	"grok" : {
+		"match" : { "type" : "hash", "data" : "hash" },
+		"patterns_dir" : { "type" : "text", "data" : "array" }
+	}
+}

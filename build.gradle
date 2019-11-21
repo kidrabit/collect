@@ -1,0 +1,54 @@
+
+plugins {
+	id 'org.springframework.boot' version '2.1.7.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+	id 'war'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat' //jar 배포 시 주석 처리
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile('org.apache.tomcat.embed:tomcat-embed-jasper')
+	compile('javax.servlet:jstl:1.2')
+	compile("org.springframework.boot:spring-boot-devtools")
+	//compile('org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:1.16')
+	compile('com.google.code.gson:gson:2.8.2')
+	compile('org.elasticsearch.client:elasticsearch-rest-client:7.0.0')
+	compile('org.elasticsearch.client:elasticsearch-rest-high-level-client:7.0.0')
+	compile('org.elasticsearch:elasticsearch:7.0.0')
+	compile('org.sitemesh:sitemesh:3.0.1')
+	compile('org.json:json:20080701')
+	compile ('org.apache.logging.log4j:log4j-core')
+	compile ('org.apache.logging.log4j:log4j-api')
+	compile ('org.apache.logging.log4j:log4j-slf4j-impl')
+}
+
+configurations {
+    all {
+          exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+      }
+}
+
+/*
+bootJar{
+	archiveBaseName="collect"
+	archiveFileName="test.jar"
+	archiveVersion="1.0.0"
+
+}
+*/
+bootWar{
+	archiveBaseName='collect'
+	archiveFileName='collect.war'
+	archiveVersion='1.0.0'
+}
