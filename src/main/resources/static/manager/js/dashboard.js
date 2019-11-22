@@ -88,7 +88,7 @@ $(function(){
 				}
 			},
 			error : function(jqXHR, textStatus, errorThrown){
-				alert("error" + errorThrown);
+				alert(jqXHR.responseText);
 			}
 		});
 	}
