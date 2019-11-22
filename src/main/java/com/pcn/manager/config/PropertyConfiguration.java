@@ -42,9 +42,9 @@ public class PropertyConfiguration {
     	for(Object obj : file_temp_array) {
     		file = new File(obj.toString());
     		fileNm = file.getName();
-    		if(fileNm.matches("(?i)(\\S)+\\.(properties)$")) {
+    		if(fileNm.matches("(?i)(\\S)+\\.(properties)$")) {//properties파일
     			file_properties.add(file);
-    		} else if (fileNm.matches("(?i)(\\S)+\\.(yml)$")) {
+    		} else if (fileNm.matches("(?i)(\\S)+\\.(yml)$")) {//yml파일 
     			file_yml.add(file);
     		}
     	}
