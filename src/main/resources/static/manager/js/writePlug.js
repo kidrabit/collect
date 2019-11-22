@@ -20,7 +20,7 @@ $(function(){
 					editor.session.setValue(data.contents);
 				},
 				error : function(jqXHR, textStatus, errorThrown){
-					alert("error" + errorThrown);
+					alert(jqXHR.responseText);
 				}
 			});
 		}
@@ -44,7 +44,7 @@ $(function(){
 					alert(data.msg);
 				},
 				error : function(jqXHR, textStatus, errorThrown){
-					alert("error" + errorThrown);
+					alert(jqXHR.responseText);
 				}
 			});
 		}
@@ -95,7 +95,6 @@ $(function(){
 					alert(data.engineMsg);
 				},
 				error : function(jqXHR, textStatus, errorThrown){
-					//alert("error" + errorThrown);
 					alert(jqXHR.responseText);
 				},
 				complete : function () {
@@ -119,7 +118,6 @@ $(function(){
 					alert(data.engineMsg);
 				},
 				error : function(jqXHR, textStatus, errorThrown){
-					//alert("error" + errorThrown);
 					alert(jqXHR.responseText);
 				},
 				complete : function () {
