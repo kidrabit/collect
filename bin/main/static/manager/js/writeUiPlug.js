@@ -34,7 +34,7 @@ $(function(){
 				alert(data.msg);
 			},
 			error : function(jqXHR, textStatus, errorThrown){
-				alert("error" + errorThrown);
+				alert(jqXHR.responseText);
 			}
 		});
 	});

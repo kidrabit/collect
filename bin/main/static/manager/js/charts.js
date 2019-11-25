@@ -140,7 +140,7 @@ $(function(){
 				stackup_genData(data);
 			},
 			error : function(jqXHR, textStatus, errorThrown){
-				alert("error" + errorThrown);
+				alert(jqXHR.responseText);
 			}
 		});
 	}
@@ -159,7 +159,7 @@ $(function(){
 				stackup_eventData(data);
 			},
 			error : function(jqXHR, textStatus, errorThrown){
-				alert("error" + errorThrown);
+				alert(jqXHR.responseText);
 			}
 		});
 	}
