@@ -6,21 +6,16 @@ import java.io.PrintStream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@Order(2)
-@ControllerAdvice(annotations = Controller.class)
+@ControllerAdvice
 public class ExceptionController {
 	
 	Logger logger = LogManager.getLogger(getClass());
 	
 	@ExceptionHandler(Exception.class)
 	public void errorLogWrite(Exception e) throws Exception {
-		
-		System.out.println("ExceptionControllerExceptionControllerExceptionController================================");
 		
 		ByteArrayOutputStream byteOut = null;
 		String error = "";
