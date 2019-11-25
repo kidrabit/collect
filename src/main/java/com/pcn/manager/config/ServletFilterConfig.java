@@ -11,7 +11,6 @@ public class ServletFilterConfig {
 	
     @Bean
     public FilterRegistrationBean<Filter> siteMeshFilter() {
-    	
         FilterRegistrationBean<Filter> filter = new FilterRegistrationBean<Filter>();
         filter.setFilter(new SiteMeshFilter());
         return filter;
