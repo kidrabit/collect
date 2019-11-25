@@ -33,16 +33,18 @@
 			<span>Charts</span>
 		</a>
 	</li>
+	<!-- 
 	<li class="nav-item <c:if test='${menu eq "write"}'>active</c:if>">
 		<a class="nav-link" href="write">
 			<i class="fas fa-fw fa-table"></i>
 			<span>Plugin Manager</span>
 		</a>
 	</li>
+	 -->
 	<li class="nav-item <c:if test='${menu eq "writeUi"}'>active</c:if>">
 		<a class="nav-link" href="writeUi">
 			<i class="fas fa-fw fa-table"></i>
-			<span>Plugin Manager2</span>
+			<span>Plugin Manager</span>
 		</a>
 	</li>
 	<li class="nav-item <c:if test='${menu eq "flowChart"}'>active</c:if>">

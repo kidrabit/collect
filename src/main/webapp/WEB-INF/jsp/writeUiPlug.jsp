@@ -18,10 +18,10 @@
 	</div>
 </head>
 <body id="page-top">
-	<div id="pageBreadcrumb">Plugin Manager2</div>
+	<div id="pageBreadcrumb">Plugin Manager</div>
 	<div id="pageContents">
 		<!-- Page Content -->
-		<h1>Plugin Manager2</h1>
+		<h1>Plugin Manager</h1>
 		<hr/>
 		<p>Please write plugin configuration include input, filter, output.</p>
 		

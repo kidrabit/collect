@@ -37,7 +37,7 @@ public class ErrorPageController implements ErrorController {
         return ERROR_PATH;
     }
 
-    @RequestMapping("/error/error")
+    @RequestMapping(ERROR_PATH)
     public String handleError(HttpServletRequest request, Model model) {
         return "error404";
     }

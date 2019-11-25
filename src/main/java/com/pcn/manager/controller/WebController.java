@@ -45,13 +45,7 @@ public class WebController {
 
     @Value("${logstash.port}")
     private String logstash_port;
-    /*
-    @Value("${file.name}")
-    private String file_name;
     
-    @Value("${es.port}")
-    private String es_port;
-    */
     @Autowired
     public Shutter shutter;
 
