@@ -209,5 +209,4 @@ $(function(){
             tabidentify: 'hor_1' // The tab groups identifier
         });
 	}
-	//$.onloadData();
 });

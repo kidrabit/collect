@@ -15,7 +15,6 @@ $(function(){
 			resize: true,
 			xLabels : "5min",
 			pointSize: 2
-			//units: 's'
 		});
 		
 		even_latency_graph = new Morris.Line({
@@ -39,7 +38,6 @@ $(function(){
 			resize: true,
 			xLabels : "5min",
 			pointSize: 2
-			//units: 's'
 		});
 	}
 
