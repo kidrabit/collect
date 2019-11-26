@@ -48,7 +48,6 @@ $(function(){
             loadUrl: '/popup/writeView?fileName=logstash.conf',
             closeClass:'writeClose',
             onOpen: function() {
-           	 //$(".content").html("");
             }, 
             onClose: function() {
             	$("#popWritePlug").html("");
