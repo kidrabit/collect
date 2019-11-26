@@ -38,8 +38,6 @@ $(function(){
 				type: "post",
 				data : {"fileName" : fileName, "contents" : editor.session.getValue(), "confSection" : confSection},
 				success : function(data, textStatus, jqXHR){
-					//$("#fileSel").val(data.fileName);
-					//location.reload();
 					editor.session.setValue(data.contents);
 					alert(data.msg);
 				},
@@ -64,7 +62,6 @@ $(function(){
             loadUrl: '/popup/addConfFile',
             closeClass:'btnClose',
             onOpen: function() {
-           	 //$(".content").html("");
             }, 
             onClose: function() {
             	$(".popAddConfFile").html("");
