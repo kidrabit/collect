@@ -15,19 +15,6 @@ public class SiteMeshFilter extends ConfigurableSiteMeshFilter {
             .addExcludedPath("/popup/**")
             .addExcludedPath("/form/**")
             .addExcludedPath("/plugin/**");
-        /*
-        //Map decorators to path patterns.
-        builder.addDecoratorPath("/web/**.do*", "/WEB-INF/decorators/defaultDecorator.jsp")
-        	   .addDecoratorPath("/backend/**.do", "/WEB-INF/decorators/adminDecorator.jsp");
-        //Map multiple decorators to the a single path.
-        builder.addDecoratorPaths("/articles/*", "/decorators/article.html",
-        										 "/decoratos/two-page-layout.html",
-        										 "/decorators/common.html");
-        
-         */
-
-        //Exclude path from decoration.
-
         //add div tag rule
         builder.addTagRuleBundles(new DivExtractingTagRuleBundle());
     }
