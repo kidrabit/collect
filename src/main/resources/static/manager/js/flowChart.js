@@ -68,9 +68,7 @@
 		    		top = 50 + (i * 120);
 		    	}else if(type == "filter"){
 		    		top = 100 + (i * 120);
-		    	}/*else if(type == "output"){
-		    		top = 50 + (i * 120);;
-		    	}*/
+		    	}
 	    		
 	    		operators_nm = "operator_"+type+"_"+list[i]+"_"+(i+1);
 	    		
