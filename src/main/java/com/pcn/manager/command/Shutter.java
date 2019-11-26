@@ -223,7 +223,6 @@ public class Shutter {
     
     public String getLxPID(String port) {
     	
-    	//String[] command = {"sh", "-c", "ps -ef|grep logstash|grep -v grep|awk '{print $2}'"};
     	String[] command = {"sh", "-c", "netstat -lntp|grep " + port + "|awk '{print $7}'"};
     	
 		Process process = null;
