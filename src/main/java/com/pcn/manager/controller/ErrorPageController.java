@@ -3,8 +3,8 @@ package com.pcn.manager.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -15,14 +15,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.util.UrlPathHelper;
 
 /**
@@ -43,6 +40,8 @@ import org.springframework.web.util.UrlPathHelper;
 public class ErrorPageController implements ErrorController {
 	
 	Logger logger = LogManager.getLogger(getClass());
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
 
     private static final String ERROR_PATH = "/error";
     /**
@@ -57,7 +56,13 @@ public class ErrorPageController implements ErrorController {
     }
 
     @RequestMapping(ERROR_PATH)
-    public String handleError(HttpServletRequest req, HttpServletResponse res,@RequestHeader HttpHeaders headers, Exception e) throws Exception {
+    public String handleError(HttpServletRequest req, HttpServletResponse res, @RequestHeader HttpHeaders headers, Model model, Exception e) {
+    	
+    	Exception exception = (Exception) req.getAttribute("javax.servlet.error.exception");
+    	
+    	if(exception != null) {
+    		e = exception;
+    	}
     	
     	this.errorLogWrite(e);
     	
@@ -68,12 +73,21 @@ public class ErrorPageController implements ErrorController {
         String originalURL = urlPathHelper.getOriginatingRequestUri(req);
         str_path = originalURL;
         
-        if("404".equals(statusCode.toString())) {
-        	str_path = "error404";
+        //String contentType = req.getHeader("Content-Type");
+        
+        HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(statusCode.toString()));
+        model.addAttribute("code", statusCode.toString());
+        model.addAttribute("msg", httpStatus.getReasonPhrase());
+        //model.addAttribute("timestamp", sdf.format(new Date()));
+        
+        //ajax일 경우
+        if(str_path.lastIndexOf(".ajax") > -1) {
+        //if(MediaType.APPLICATION_JSON_VALUE.equals(contentType)) {
+            str_path = "ajax_error";
         }else {
-        	str_path = "error500";
-        	throw e;
+        	str_path = "error";
         }
+        
         return str_path;
     }
     
