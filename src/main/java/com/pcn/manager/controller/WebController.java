@@ -45,12 +45,26 @@ public class WebController {
 
     @Value("${logstash.port}")
     private String logstash_port;
+    /*
+    @Value("${file.name}")
+    private String file_name;
     
+    @Value("${es.port}")
+    private String es_port;
+    */
     @Autowired
     public Shutter shutter;
 
     @Autowired
     public WebService webService;
+    
+    //404
+    /*
+    @RequestMapping(value = "/manager/**")
+    public void viewNotMappingRequest(HttpServletRequest req, HttpServletResponse res,@RequestHeader HttpHeaders headers) throws NoHandlerFoundException {
+    	throw new NoHandlerFoundException("URL not found exception", req.getRequestURL().toString(), headers);
+    }
+    */
 
     @RequestMapping(value = "/manager/start", method = RequestMethod.POST)
     @ResponseBody
