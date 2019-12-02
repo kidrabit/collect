@@ -45,10 +45,11 @@ public class WebController {
 
     @Value("${logstash.port}")
     private String logstash_port;
-    /*
-    @Value("${file.name}")
-    private String file_name;
     
+    @Value("${conf.file.name}")
+    private String conf_file_name;
+    
+    /*
     @Value("${es.port}")
     private String es_port;
     */
@@ -137,7 +138,7 @@ public class WebController {
 
     @RequestMapping(value = "/manager/flowChart")
     public String flowChart(Model model, @RequestParam Map<String, String> paramMap) {
-        paramMap.put("fileName", "logstash.conf");
+        paramMap.put("fileName", conf_file_name);
         paramMap.put("confSection", "input");
         model.addAttribute("inputList", webService.sectionItemList(model, paramMap));
         paramMap.put("confSection", "output");
@@ -155,6 +156,7 @@ public class WebController {
 
     @RequestMapping(value = "/popup/writeView")
     public String popupWrtieView(Model model, @RequestParam Map<String, String> paramMap) {
+    	paramMap.put("fileName", conf_file_name);
         model.addAttribute("contents", webService.loadEdit(model, paramMap));
         return "popupWritePlugView";
     }
@@ -186,6 +188,7 @@ public class WebController {
 
     @RequestMapping(value = "/form/writeForm", method = RequestMethod.POST)
     public String inputForm(Model model, @RequestParam Map<String, String> paramMap) {
+    	paramMap.put("fileName", conf_file_name);
         model.addAttribute("confSection", paramMap.get("confSection"));
         model.addAttribute("formJson", webService.getWriteFormJson(paramMap.get("confSection")));
         model.addAttribute("dataJsonArray", webService.getConfJsonObject(model, paramMap));
@@ -195,6 +198,7 @@ public class WebController {
     @RequestMapping(value = "/manager/writeUiSave", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> writeUiSave(Model model, @RequestParam Map<String, String> paramMap, HttpServletRequest request) {
+    	paramMap.put("fileName", conf_file_name);
         String[] tabItemNm = request.getParameterValues("tabItemNm");
         webService.writeUiSave(model, paramMap, tabItemNm, request);
         return paramMap;
