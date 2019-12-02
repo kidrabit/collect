@@ -7,7 +7,7 @@ $(function(){
 		if(confSection != "" && confSection != null && confSection != undefined){
 			$(".selectFormDiv").load("/form/selectForm", {"confSection" : confSection}, function(response, status, xhr){
 				if(status == "success"){
-					$(".writeFormDiv").load("/form/writeForm", {"fileName" : "logstash.conf", "confSection" : confSection}, function(response, status, xhr){
+					$(".writeFormDiv").load("/form/writeForm", {"confSection" : confSection}, function(response, status, xhr){
 						if(status == "success"){
 							$.onloadData();
 						}else if(status == "error"){
@@ -23,7 +23,6 @@ $(function(){
 	
 	$("#saveBtn").click(function(){
 		var params = $("#confForm").serialize();
-		params += "&fileName=logstash.conf";
 		
 		$.ajax({
 			url : "/manager/writeUiSave",
@@ -34,7 +33,7 @@ $(function(){
 				alert(data.msg);
 			},
 			error : function(jqXHR, textStatus, errorThrown){
-				alert(jqXHR.responseText);
+				alert("error" + errorThrown);
 			}
 		});
 	});
@@ -45,9 +44,10 @@ $(function(){
             modalClose : false,
             content:'ajax',
             contentContainer:'#popWritePlug',
-            loadUrl: '/popup/writeView?fileName=logstash.conf',
+            loadUrl: '/popup/writeView',
             closeClass:'writeClose',
             onOpen: function() {
+           	 //$(".content").html("");
             }, 
             onClose: function() {
             	$("#popWritePlug").html("");
