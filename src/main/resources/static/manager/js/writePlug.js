@@ -12,7 +12,7 @@ $(function(){
 
 		if(fileName != "none"){
 			$.ajax({
-				url : "/manager/loadEditDt",
+				url : "/manager/loadEditDt.ajax",
 				dataType : "json",
 				type: "post",
 				data : {"fileName" : fileName, "confSection" : confSection},
@@ -33,11 +33,13 @@ $(function(){
 		
 		if(fileName != "none" && confSection != ""){
 			$.ajax({
-				url : "/manager/saveEditDt",
+				url : "/manager/saveEditDt.ajax",
 				dataType : "json",
 				type: "post",
 				data : {"fileName" : fileName, "contents" : editor.session.getValue(), "confSection" : confSection},
 				success : function(data, textStatus, jqXHR){
+					//$("#fileSel").val(data.fileName);
+					//location.reload();
 					editor.session.setValue(data.contents);
 					alert(data.msg);
 				},
@@ -62,6 +64,7 @@ $(function(){
             loadUrl: '/popup/addConfFile',
             closeClass:'btnClose',
             onOpen: function() {
+           	 //$(".content").html("");
             }, 
             onClose: function() {
             	$(".popAddConfFile").html("");
@@ -85,7 +88,7 @@ $(function(){
 			$.loading_img();
 			
 			$.ajax({
-				url : "/manager/start",
+				url : "/manager/start.ajax",
 				dataType : "json",
 				type: "post",
 				success : function(data, textStatus, jqXHR){
@@ -108,7 +111,7 @@ $(function(){
 			engChk = false;
 			
 			$.ajax({
-				url : "/manager/shutdown",
+				url : "/manager/shutdown.ajax",
 				dataType : "json",
 				type: "post",
 				success : function(data, textStatus, jqXHR){
