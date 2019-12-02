@@ -5,17 +5,17 @@ $(function(){
 		$("#confSection").val(confSection);
 
 		if(confSection != "" && confSection != null && confSection != undefined){
-			$(".selectFormDiv").load("/form/selectForm", {"confSection" : confSection}, function(response, status, xhr){
+			$(".selectFormDiv").load("/form/selectForm.ajax", {"confSection" : confSection}, function(response, status, xhr){
 				if(status == "success"){
-					$(".writeFormDiv").load("/form/writeForm", {"confSection" : confSection}, function(response, status, xhr){
+					$(".writeFormDiv").load("/form/writeForm.ajax", {"confSection" : confSection}, function(response, status, xhr){
 						if(status == "success"){
 							$.onloadData();
 						}else if(status == "error"){
-							alert(status);
+							alert(xhr.responseText);
 						}
 					});
 				}else if(status == "error"){
-					alert(status);
+					alert(xhr.responseText);
 				}
 			});
 		}
@@ -25,7 +25,7 @@ $(function(){
 		var params = $("#confForm").serialize();
 		
 		$.ajax({
-			url : "/manager/writeUiSave",
+			url : "/manager/writeUiSave.ajax",
 			dataType : "json",
 			type: "post",
 			data : params,
@@ -33,7 +33,7 @@ $(function(){
 				alert(data.msg);
 			},
 			error : function(jqXHR, textStatus, errorThrown){
-				alert("error" + errorThrown);
+				alert(xhr.responseText);
 			}
 		});
 	});
