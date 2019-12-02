@@ -67,6 +67,9 @@ $(function(){
 		$tab.append(strNode);
 
 		$tab = $(".resp-tabs-container");
+		//$tab_list = $(".resp-tabs-container > div");
+		//len = $tab_list.length;
+		//len ++;
 		
 		var tabNum = "tab"+len;
 
@@ -155,6 +158,7 @@ $(function(){
 
 	$.addBtnClick = function(button){
 		var td_id = $(button).parent().parent().attr("id");
+		//var key = td_id.split("_")[1];
 		var key = td_id.substring(td_id.indexOf("_")+1);
 		
 		var cnt = $("#"+td_id + " > div").length + 1;
@@ -207,6 +211,16 @@ $(function(){
             fit: true, // 100% fit in a container
             closed: 'accordion', // Start closed if in accordion view
             tabidentify: 'hor_1' // The tab groups identifier
+            /*
+            activate: function(event) { // Callback function if tab is switched
+                var $tab = $(this);
+                var $info = $('#nested-tabInfo2');
+                var $name = $('span', $info);
+                $name.text($tab.text());
+                $info.show();
+            }
+            */
         });
 	}
+	//$.onloadData();
 });
