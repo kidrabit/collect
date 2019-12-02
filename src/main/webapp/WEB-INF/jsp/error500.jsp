@@ -26,8 +26,8 @@
       <div class="container-fluid">
 
         <!-- Page Content -->
-        <h1 class="display-1">400</h1>
-        <p class="lead">Page not found. You can
+        <h1 class="display-1">500</h1>
+        <p class="lead">Server error. You can
           <a href="javascript:history.back()">go back</a>
           to the previous page, or
           <a href="index.html">return home</a>.</p>
