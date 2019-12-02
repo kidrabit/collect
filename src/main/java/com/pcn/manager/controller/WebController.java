@@ -67,7 +67,7 @@ public class WebController {
     }
     */
 
-    @RequestMapping(value = "/manager/start", method = RequestMethod.POST)
+    @RequestMapping(value = "/manager/start.ajax", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> start(Model model) throws Exception {
     	shutter = new Shutter();
@@ -75,7 +75,7 @@ public class WebController {
         return msgMap;
     }
 
-    @RequestMapping(value = "/manager/shutdown", method = RequestMethod.POST)
+    @RequestMapping(value = "/manager/shutdown.ajax", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> shutDown(Model model)  throws Exception {
     	shutter = new Shutter();
@@ -97,14 +97,14 @@ public class WebController {
         return paramMap;
     }
 
-    @RequestMapping("/manager/loadEditDt")
+    @RequestMapping("/manager/loadEditDt.ajax")
     @ResponseBody
     public Map<String, String> loadEditDt(Model model, @RequestParam Map<String, String> paramMap) {
         paramMap.put("contents", webService.loadEditDt(model, paramMap));
         return paramMap;
     }
 
-    @RequestMapping(value = "/manager/saveEditDt", method = RequestMethod.POST)
+    @RequestMapping(value = "/manager/saveEditDt.ajax", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> saveEditDt(Model model, @RequestParam Map<String, String> paramMap) {
         webService.saveEditDt(model, paramMap);
@@ -180,13 +180,13 @@ public class WebController {
         return "writeUiPlug";
     }
 
-    @RequestMapping(value = "/form/selectForm", method = RequestMethod.POST)
+    @RequestMapping(value = "/form/selectForm.ajax", method = RequestMethod.POST)
     public String selectForm(Model model, @RequestParam Map<String, String> paramMap) {
         webService.getSelectList(model, paramMap);
         return "uiForms/selectForm";
     }
 
-    @RequestMapping(value = "/form/writeForm", method = RequestMethod.POST)
+    @RequestMapping(value = "/form/writeForm.ajax", method = RequestMethod.POST)
     public String inputForm(Model model, @RequestParam Map<String, String> paramMap) {
     	paramMap.put("fileName", conf_file_name);
         model.addAttribute("confSection", paramMap.get("confSection"));
@@ -195,7 +195,7 @@ public class WebController {
         return "uiForms/writeForm";
     }
 
-    @RequestMapping(value = "/manager/writeUiSave", method = RequestMethod.POST)
+    @RequestMapping(value = "/manager/writeUiSave.ajax", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> writeUiSave(Model model, @RequestParam Map<String, String> paramMap, HttpServletRequest request) {
     	paramMap.put("fileName", conf_file_name);
