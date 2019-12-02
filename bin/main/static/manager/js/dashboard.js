@@ -14,7 +14,8 @@ $(function(){
 			labels: ['events_out'],
 			resize: true,
 			xLabels : "5min",
-			pointSize: 2		});
+			pointSize: 2
+		});
 		
 		even_latency_graph = new Morris.Line({
 			element: 'even_latency_graph',
