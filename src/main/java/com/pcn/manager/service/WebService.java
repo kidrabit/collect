@@ -547,6 +547,7 @@ public class WebService {
 		String[] hashNm = null;
 		String[] hashVal = null;
 		String paramKey = "";
+		boolean item_able = true;
 		
 		if(tabItemNm != null) {
 		
@@ -569,7 +570,18 @@ public class WebService {
 					data = paramMap.get(paramKey);
 					dataType = ((JsonObject)e.getValue()).get("data").getAsString();
 					
+					//아이템 항목 사용여부
+					if(((JsonObject)e.getValue()).has("item_able")) {
+						item_able = ((JsonObject)e.getValue()).get("item_able").getAsBoolean();
+					}else {
+						item_able = true;
+					}
+					//아이템 항목 사용 안하면 저장 안함
+					if(!item_able) continue;
+					
 					if(!"hash".equalsIgnoreCase(dataType)) {
+						if(item_able)
+						
 						if(data == null || "".equalsIgnoreCase(data.trim())) {
 							continue;
 						} else {
@@ -619,16 +631,41 @@ public class WebService {
 							bf.append(next);
 						}
 					} else if("array".equalsIgnoreCase(dataType)) {
-						temp = data.trim().split(",");
-						bf.append("[");
-						for(int j=0; j<temp.length; j++) {
-							bf.append("\"");
-							bf.append(temp[j].trim());
+						//output (jdbc - statement) 예외 
+						if(((JsonObject)e.getValue()).has("data_share")) {
+							
+							bf.append("[\"");
+							bf.append(data.trim());
 							bf.append("\",");
+							
+							String data_share = ((JsonObject)e.getValue()).get("data_share").getAsString();
+							paramKey = type[0]+"_"+data_share;
+							data = paramMap.get(paramKey).trim();
+							
+							if(data.length() > 0) {
+								temp = data.split(",");
+								for(int j=0; j<temp.length; j++) {
+									bf.append("\"");
+									bf.append(temp[j].trim());
+									bf.append("\",");
+								}
+							}
+							
+							bf.delete(bf.lastIndexOf(","), bf.length());
+							bf.append("]");
+							bf.append(next);
+						} else {
+							temp = data.trim().split(",");
+							bf.append("[");
+							for(int j=0; j<temp.length; j++) {
+								bf.append("\"");
+								bf.append(temp[j].trim());
+								bf.append("\",");
+							}
+							bf.delete(bf.lastIndexOf(","), bf.length());
+							bf.append("]");
+							bf.append(next);
 						}
-						bf.delete(bf.lastIndexOf(","), bf.length());
-						bf.append("]");
-						bf.append(next);
 					} else {
 						bf.append(data);
 						bf.append(next);
@@ -645,7 +682,6 @@ public class WebService {
 		
 		paramMap.put("contents", bf.toString());
 		this.saveEditDt(model, paramMap);
-		
 		return null;
 	}
 	
