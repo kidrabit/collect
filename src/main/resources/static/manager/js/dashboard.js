@@ -1,4 +1,6 @@
 $(function(){
+	
+	$('[data-toggle="tooltip"]').tooltip();
 
 	var events_received_rate_data=[];
 	var events_emitted_rate_data = [];
@@ -15,6 +17,7 @@ $(function(){
 			resize: true,
 			xLabels : "5min",
 			pointSize: 2
+			//units: 's'
 		});
 		
 		even_latency_graph = new Morris.Line({
@@ -38,6 +41,7 @@ $(function(){
 			resize: true,
 			xLabels : "5min",
 			pointSize: 2
+			//units: 's'
 		});
 	}
 
@@ -86,7 +90,7 @@ $(function(){
 				}
 			},
 			error : function(jqXHR, textStatus, errorThrown){
-				alert(jqXHR.responseText);
+				alert("error" + errorThrown);
 			}
 		});
 	}
