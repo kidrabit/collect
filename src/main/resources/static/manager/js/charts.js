@@ -1,7 +1,7 @@
 
 $(function(){
 	
-	$('[data-toggle="tooltip"]').tooltip()
+	$('[data-toggle="tooltip"]').tooltip();
 	
 	var jvm_heap_data = [];
 	var cpu_utilization_data = [];
@@ -140,7 +140,7 @@ $(function(){
 				stackup_genData(data);
 			},
 			error : function(jqXHR, textStatus, errorThrown){
-				alert(jqXHR.responseText);
+				alert("error" + errorThrown);
 			}
 		});
 	}
@@ -159,7 +159,7 @@ $(function(){
 				stackup_eventData(data);
 			},
 			error : function(jqXHR, textStatus, errorThrown){
-				alert(jqXHR.responseText);
+				alert("error" + errorThrown);
 			}
 		});
 	}
