@@ -32,8 +32,11 @@ import com.pcn.manager.service.WebService;
  * @section 상세설명
  * - 클래스의 업무내용에 대해 기술...
 */
+//설정파일 외부로 뺄때 주석 처리 해야함
+//
 @Configuration
 @PropertySource("classpath:logstash.properties")
+//
 @Controller
 public class WebController {
 
