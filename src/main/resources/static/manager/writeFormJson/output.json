@@ -8,7 +8,8 @@
 		"driver_jar_path" : { "type" : "text", "data" : "string" },
 		"driver_class" : { "type" : "text", "data" : "string" },
 		"connection_string" : { "type" : "text", "data" : "string" },
-		"statement" : { "type" : "text", "data" : "array" }
+		"statement" : { "type" : "text", "data" : "array", "data_share" : "columns"},
+		"columns" : { "type" : "text", "data" : "array", "item_able" : false}
 	},
 	"mongodb" : {
 		"collection" : { "type" : "text", "data" : "string" },
