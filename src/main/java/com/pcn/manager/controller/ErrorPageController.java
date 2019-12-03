@@ -64,10 +64,10 @@ public class ErrorPageController implements ErrorController {
     		e = exception;
     	}
     	
-    	this.errorLogWrite(e);
-    	
     	String str_path = "";
         Object statusCode = req.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        
+        this.errorLogWrite(e, statusCode);
         
         UrlPathHelper urlPathHelper = new UrlPathHelper(); 
         String originalURL = urlPathHelper.getOriginatingRequestUri(req);
@@ -91,7 +91,7 @@ public class ErrorPageController implements ErrorController {
         return str_path;
     }
     
-	private void errorLogWrite(Exception e) {
+	private void errorLogWrite(Exception e, Object statusCode) {
 		
 		ByteArrayOutputStream byteOut = null;
 		String error = "";
@@ -114,6 +114,7 @@ public class ErrorPageController implements ErrorController {
 					e1.printStackTrace();
 				}
 		}
+		logger.error("status_code : " + statusCode);
 		logger.error(error);
 	}
 }
