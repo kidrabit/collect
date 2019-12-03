@@ -92,6 +92,7 @@
 		<div class="card mb-3" style="width: 33%; float: left;">
 			<div class="card-header">
 				<i class="fas fa-chart-area"></i> Events Received (/s)
+				<span class="tooltip-mark" data-toggle="tooltip" data-placement="left" title="input 단계에서 Logstash 노드가 초 당 수신한 이벤트 수"><i class="fas fa-question-circle"></i></span>
 			</div>
 			<div class="card-body">
 				<div id="event_received_graph"></div>
@@ -102,6 +103,7 @@
 		<div class="card mb-3"  style="width: 34%; float: left;">
 			<div class="card-header">
 				<i class="fas fa-chart-area"></i> Events Emitted (/s)
+				<span class="tooltip-mark" data-toggle="tooltip" data-placement="left" title="output 단계에서 Logstash 노드가 초 당 수신한 이벤트 수"><i class="fas fa-question-circle"></i></span>
 			</div>
 			<div class="card-body">
 				<div id="events_emitted_rate_graph"></div>
@@ -112,6 +114,7 @@
 		<div class="card mb-3"  style="width: 33%; ">
 			<div class="card-header">
 				<i class="fas fa-chart-area"></i> Events Latency (ms)
+				<span class="tooltip-mark" data-toggle="tooltip" data-placement="left" title="필터 및 출력 단계에서 이벤트가 소비한 평균 시간. 이벤트를 처리하는 데 걸리는 총 시간을 생성 된 이벤트 수로 나눈 값"><i class="fas fa-question-circle"></i></span>
 			</div>
 			<div class="card-body">
 			<div id="even_latency_graph"></div>
