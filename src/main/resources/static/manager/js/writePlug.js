@@ -37,9 +37,7 @@ $(function(){
 				dataType : "json",
 				type: "post",
 				data : {"fileName" : fileName, "contents" : editor.session.getValue(), "confSection" : confSection},
-				success : function(data, textStatus, jqXHR){
-					//$("#fileSel").val(data.fileName);
-					//location.reload();
+				success : function(data, textStatus, jqXHR){  
 					editor.session.setValue(data.contents);
 					alert(data.msg);
 				},
