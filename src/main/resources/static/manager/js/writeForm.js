@@ -84,11 +84,8 @@ $(function(){
 		$tab.append(strNode);
 
 		$tab = $(".resp-tabs-container");
-		//$tab_list = $(".resp-tabs-container > div");
-		//len = $tab_list.length;
-		//len ++;
 		
-		var tabNum = "tab"+len;
+		var tabNum = "tab" + len;
 
 		strNode = "<div id='item_div_"+len+"'>";
 		strNode += "<input type='hidden' name='tabItemNm' id='tabItemNm' value='"+tabNum+":"+itemNm+"' />";
