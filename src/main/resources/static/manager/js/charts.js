@@ -88,31 +88,6 @@ $(function(){
 		});
 	}
 	
-/*	$('.fromTime').timepicker({
-	    timeFormat: 'HH:mm:ss',
-	    interval: 60,
-	    minTime: '09',
-	    maxTime: '11:00pm',
-	    defaultTime: '',
-	    startTime: '09:00',
-	    dynamic: false,
-	    dropdown: true,
-	    scrollbar: true
-	});
-	
-	$('.toTime').timepicker({
-	    timeFormat: 'HH:mm:ss',
-	    interval: 60,
-	    minTime: '09',
-	    maxTime: '11:00pm',
-	    defaultTime: '',
-	    startTime: '09:00',
-	    dynamic: false,
-	    dropdown: true,
-	    scrollbar: true
-	});*/
-	
-	
 	$('input[name="fromTime"]').daterangepicker({
 	    timePicker: true,
 	    timePicker24Hour: true,
