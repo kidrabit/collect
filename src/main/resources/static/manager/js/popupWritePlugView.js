@@ -23,14 +23,13 @@ $(function(){
 			$.loading_img();
 			
 			$.ajax({
-				url : "/manager/start",
+				url : "/manager/start.ajax",
 				dataType : "json",
 				type: "post",
 				success : function(data, textStatus, jqXHR){
 					alert(data.engineMsg);
 				},
 				error : function(jqXHR, textStatus, errorThrown){
-					//alert("error" + errorThrown);
 					alert(jqXHR.responseText);
 				},
 				complete : function () {
@@ -47,14 +46,13 @@ $(function(){
 			engChk = false;
 			
 			$.ajax({
-				url : "/manager/shutdown",
+				url : "/manager/shutdown.ajax",
 				dataType : "json",
 				type: "post",
 				success : function(data, textStatus, jqXHR){
 					alert(data.engineMsg);
 				},
 				error : function(jqXHR, textStatus, errorThrown){
-					//alert("error" + errorThrown);
 					alert(jqXHR.responseText);
 				},
 				complete : function () {

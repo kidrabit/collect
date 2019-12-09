@@ -28,23 +28,40 @@ $(function(){
 
 	$.initTabData = function(dataJson, itemNm, idx){
 		var tabNum = "tab"+(idx+1);
+		var item_able = false;
 		
 		for(var key in formJson[itemNm]){
-			if(formJson[itemNm][key].type == "checkbox"){
-				if(dataJson[itemNm][key] == true){
-					$("#"+tabNum+"_"+key).attr('checked', true);
-				}
-			}else if(formJson[itemNm][key].type == "hash"){
-				if(dataJson[itemNm][key] != null){
-					var cnt = 1;
-					for(var dataKey in dataJson[itemNm][key]){
-						$("#"+tabNum+"_"+key+"_name"+cnt).val(dataKey);
-						$("#"+tabNum+"_"+key+"_value"+cnt).val(dataJson[itemNm][key][dataKey]);
-						cnt++;
+			//아이템 항목 사용여부
+			item_able = formJson[itemNm][key].item_able ;
+			item_able = item_able == false ? false : true;
+			
+			if(item_able){
+				if(formJson[itemNm][key].type == "checkbox"){
+					if(dataJson[itemNm][key] == true){
+						$("#"+tabNum+"_"+key).attr('checked', true);
+					}
+				}else if(formJson[itemNm][key].type == "hash"){
+					if(dataJson[itemNm][key] != null){
+						var cnt = 1;
+						for(var dataKey in dataJson[itemNm][key]){
+							$("#"+tabNum+"_"+key+"_name"+cnt).val(dataKey);
+							$("#"+tabNum+"_"+key+"_value"+cnt).val(dataJson[itemNm][key][dataKey]);
+							cnt++;
+						}
+					}
+				}else{
+					//output (jdbc - statement) 예외 
+					var data_share = formJson[itemNm][key].data_share;
+					if(data_share == "columns"){
+						var data_array = dataJson[itemNm][key];
+						if(data_array.length > 0){
+							$("#"+tabNum+"_"+key).val(data_array.splice(0,1));
+							$("#"+tabNum+"_"+data_share).val(data_array);
+						}
+					}else{
+						$("#"+tabNum+"_"+key).val(dataJson[itemNm][key]);
 					}
 				}
-			}else{
-				$("#"+tabNum+"_"+key).val(dataJson[itemNm][key]);
 			}
 		}
 	}
@@ -68,7 +85,7 @@ $(function(){
 
 		$tab = $(".resp-tabs-container");
 		
-		var tabNum = "tab"+len;
+		var tabNum = "tab" + len;
 
 		strNode = "<div id='item_div_"+len+"'>";
 		strNode += "<input type='hidden' name='tabItemNm' id='tabItemNm' value='"+tabNum+":"+itemNm+"' />";
@@ -155,6 +172,7 @@ $(function(){
 
 	$.addBtnClick = function(button){
 		var td_id = $(button).parent().parent().attr("id");
+		//var key = td_id.split("_")[1];
 		var key = td_id.substring(td_id.indexOf("_")+1);
 		
 		var cnt = $("#"+td_id + " > div").length + 1;
@@ -207,6 +225,16 @@ $(function(){
             fit: true, // 100% fit in a container
             closed: 'accordion', // Start closed if in accordion view
             tabidentify: 'hor_1' // The tab groups identifier
+            /*
+            activate: function(event) { // Callback function if tab is switched
+                var $tab = $(this);
+                var $info = $('#nested-tabInfo2');
+                var $name = $('span', $info);
+                $name.text($tab.text());
+                $info.show();
+            }
+            */
         });
 	}
+	//$.onloadData();
 });

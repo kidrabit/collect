@@ -49,10 +49,6 @@
 		
 	        	<!-- Breadcrumbs-->
 	        	<ol class="breadcrumb">
-					<!-- <li class="breadcrumb-item">
-	            		<a href="dashboard"></a>
-	          		</li> -->
-	          		
 	          		<li class="breadcrumb-item" style="width:100%; float:right;">
 	          			<sitemesh:write property="div.pageBreadcrumb" />
 	          		</li>

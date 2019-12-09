@@ -5,19 +5,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
 import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.google.gson.JsonArray;
 import com.pcn.manager.monitor.service.ApiRestService;
@@ -50,7 +55,13 @@ public class NewApiController {
     public NewApiService newService;
 
     public static LocalDate currentDate = LocalDate.now();
-
+    
+    //404
+    @RequestMapping(value = "/**")
+    public void apiNotMappingRequest(HttpServletRequest req, HttpServletResponse res,@RequestHeader HttpHeaders headers) throws NoHandlerFoundException {
+    	throw new NoHandlerFoundException("URL not found exception", req.getRequestURL().toString(), headers);
+    }
+    
     @RequestMapping(value = "/jvm/{fromDate}/{toDate}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public JsonArray getJvm(@PathVariable String fromDate, @PathVariable String toDate) {
@@ -308,9 +319,13 @@ public class NewApiController {
     public String convert(String date) throws Exception {
         StringBuilder res = null;
         try {
+
             date = date.concat(":00.000Z");
             res = new StringBuilder(date);
-            res.setCharAt(10, 'T');
+            String d1 = res.substring(0, 10);
+            String d2 = res.substring(10);
+
+            res = new StringBuilder(d1.concat("T").concat(d2));
             String str1 = res.substring(0, 11);
             String str2 = res.substring(13, res.length());
             String time = Long.toString(Long.parseLong(res.substring(11, 13)) - 9);
@@ -318,6 +333,7 @@ public class NewApiController {
                 time = "0".concat(time);
             }
             res = new StringBuilder(str1 + time + str2);
+            System.out.println("res = " + res);
         } catch (Exception e) {
             System.out.println("날짜 형식이 잘못 되었습니다");
         }

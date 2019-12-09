@@ -32,8 +32,11 @@ import com.pcn.manager.service.WebService;
  * @section 상세설명
  * - 클래스의 업무내용에 대해 기술...
 */
+//설정파일 외부로 뺄때 주석 처리 해야함
+//
 @Configuration
 @PropertySource("classpath:logstash.properties")
+//
 @Controller
 public class WebController {
 
@@ -46,13 +49,28 @@ public class WebController {
     @Value("${logstash.port}")
     private String logstash_port;
     
+    @Value("${conf.file.name}")
+    private String conf_file_name;
+    
+    /*
+    @Value("${es.port}")
+    private String es_port;
+    */
     @Autowired
     public Shutter shutter;
 
     @Autowired
     public WebService webService;
+    
+    //404
+    /*
+    @RequestMapping(value = "/manager/**")
+    public void viewNotMappingRequest(HttpServletRequest req, HttpServletResponse res,@RequestHeader HttpHeaders headers) throws NoHandlerFoundException {
+    	throw new NoHandlerFoundException("URL not found exception", req.getRequestURL().toString(), headers);
+    }
+    */
 
-    @RequestMapping(value = "/manager/start", method = RequestMethod.POST)
+    @RequestMapping(value = "/manager/start.ajax", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> start(Model model) throws Exception {
     	shutter = new Shutter();
@@ -60,7 +78,7 @@ public class WebController {
         return msgMap;
     }
 
-    @RequestMapping(value = "/manager/shutdown", method = RequestMethod.POST)
+    @RequestMapping(value = "/manager/shutdown.ajax", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> shutDown(Model model)  throws Exception {
     	shutter = new Shutter();
@@ -82,14 +100,14 @@ public class WebController {
         return paramMap;
     }
 
-    @RequestMapping("/manager/loadEditDt")
+    @RequestMapping("/manager/loadEditDt.ajax")
     @ResponseBody
     public Map<String, String> loadEditDt(Model model, @RequestParam Map<String, String> paramMap) {
         paramMap.put("contents", webService.loadEditDt(model, paramMap));
         return paramMap;
     }
 
-    @RequestMapping(value = "/manager/saveEditDt", method = RequestMethod.POST)
+    @RequestMapping(value = "/manager/saveEditDt.ajax", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> saveEditDt(Model model, @RequestParam Map<String, String> paramMap) {
         webService.saveEditDt(model, paramMap);
@@ -123,7 +141,7 @@ public class WebController {
 
     @RequestMapping(value = "/manager/flowChart")
     public String flowChart(Model model, @RequestParam Map<String, String> paramMap) {
-        paramMap.put("fileName", "logstash.conf");
+        paramMap.put("fileName", conf_file_name);
         paramMap.put("confSection", "input");
         model.addAttribute("inputList", webService.sectionItemList(model, paramMap));
         paramMap.put("confSection", "output");
@@ -141,6 +159,7 @@ public class WebController {
 
     @RequestMapping(value = "/popup/writeView")
     public String popupWrtieView(Model model, @RequestParam Map<String, String> paramMap) {
+    	paramMap.put("fileName", conf_file_name);
         model.addAttribute("contents", webService.loadEdit(model, paramMap));
         return "popupWritePlugView";
     }
@@ -164,23 +183,25 @@ public class WebController {
         return "writeUiPlug";
     }
 
-    @RequestMapping(value = "/form/selectForm", method = RequestMethod.POST)
+    @RequestMapping(value = "/form/selectForm.ajax", method = RequestMethod.POST)
     public String selectForm(Model model, @RequestParam Map<String, String> paramMap) {
         webService.getSelectList(model, paramMap);
         return "uiForms/selectForm";
     }
 
-    @RequestMapping(value = "/form/writeForm", method = RequestMethod.POST)
+    @RequestMapping(value = "/form/writeForm.ajax", method = RequestMethod.POST)
     public String inputForm(Model model, @RequestParam Map<String, String> paramMap) {
+    	paramMap.put("fileName", conf_file_name);
         model.addAttribute("confSection", paramMap.get("confSection"));
         model.addAttribute("formJson", webService.getWriteFormJson(paramMap.get("confSection")));
         model.addAttribute("dataJsonArray", webService.getConfJsonObject(model, paramMap));
         return "uiForms/writeForm";
     }
 
-    @RequestMapping(value = "/manager/writeUiSave", method = RequestMethod.POST)
+    @RequestMapping(value = "/manager/writeUiSave.ajax", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> writeUiSave(Model model, @RequestParam Map<String, String> paramMap, HttpServletRequest request) {
+    	paramMap.put("fileName", conf_file_name);
         String[] tabItemNm = request.getParameterValues("tabItemNm");
         webService.writeUiSave(model, paramMap, tabItemNm, request);
         return paramMap;
