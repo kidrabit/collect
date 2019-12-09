@@ -11,7 +11,7 @@ $(function(){
 	var even_latency_data = [];
 	var jvm_heap_graph, cpu_utilization_graph, system_load_graph, event_received_graph , even_latency_graph, events_emitted_rate_graph;
 	
-	/*$.makeChart = function(){
+	$.makeChart = function(){
 		jvm_heap_graph = new Morris.Line({
 			  element: 'jvm_heap_graph',
 			  data: jvm_heap_data,
@@ -45,7 +45,7 @@ $(function(){
 				  pointSize: 2
 		});
 	}
-*/
+
 	/*
 	 * Event Graph 
 	 * */
