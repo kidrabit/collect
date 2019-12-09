@@ -85,9 +85,9 @@ public class DateUtil {
         }
     }
 
-    public void validateCheck(LocalDateTime dt) {
+    /*public void validateCheck(LocalDateTime dt) {
         if (dt.getSecond() != 0 || dt.getNano() == 0) {
 
         }
-    }
+    }*/
 }
