@@ -19,7 +19,6 @@ $(function(){
 			  ykeys: ['heap_max_in_bytes', 'heap_used_in_bytes'],
 			  labels: ['heap_max_in_bytes', 'heap_used_in_bytes'],
 			  resize: true,
-			  //parseTime: false,
 			  units: 'GB',
 			  pointSize: 2
 		});
@@ -30,10 +29,7 @@ $(function(){
 				  xkey: 'timestamp',
 				  ykeys: ['percent'],
 				  labels: ['percent'],
-				 /* ymin: -1.0,
-				  ymax: 1.0,*/
 				  resize: true,
-				  //parseTime: false,
 				  units: '%',
 				  pointSize: 2
 		});
