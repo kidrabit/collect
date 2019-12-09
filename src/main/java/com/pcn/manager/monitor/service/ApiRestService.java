@@ -5,12 +5,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
 import org.springframework.stereotype.Service;
 
 import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
 import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
 import org.elasticsearch.search.aggregations.metrics.Max;
 
@@ -269,7 +271,7 @@ public class ApiRestService {
         return val;
     }
 
-    /*private String getChangeByte(String sByte) {
+    private String getChangeByte(String sByte) {
 
         BigDecimal b = null;
         double temp_val = 0d;
@@ -376,18 +378,18 @@ public class ApiRestService {
             float res = 0f;
             String str_res = "";
 
-            if(Float.isInfinite(preData) || Float.isInfinite(curData)) {
-            	str_res = null;
-            	obj.addProperty(key, str_res);
-            }else {
-            	res = (curData - preData) / seconds;
+            if (Float.isInfinite(preData) || Float.isInfinite(curData)) {
+                str_res = null;
+                obj.addProperty(key, str_res);
+            } else {
+                res = (curData - preData) / seconds;
 
-            	if(Float.isNaN(res)) {
-            		res = 0f;
-            	} else {
-            		res = (res < 0) ? 0 : res;
-            	}
-            	obj.addProperty(key, this.getRound(String.valueOf(res), 10));
+                if (Float.isNaN(res)) {
+                    res = 0f;
+                } else {
+                    res = (res < 0) ? 0 : res;
+                }
+                obj.addProperty(key, this.getRound(String.valueOf(res), 10));
             }
             newArr.set(i, obj);
             obj = null;
@@ -421,22 +423,22 @@ public class ApiRestService {
 
             obj.add("timestamp", jsArr.get(i).getAsJsonObject().get("timestamp"));
 
-            if((Float.isInfinite(old_millis) || Float.isInfinite(cur_millis)) || (Float.isInfinite(old_out) || Float.isInfinite(cur_out))) {
-            	str_res = null;
-            	obj.addProperty("millis", str_res);
-            }else {
-            	res = (cur_millis - old_millis) / (cur_out - old_out) / seconds;
+            if ((Float.isInfinite(old_millis) || Float.isInfinite(cur_millis)) || (Float.isInfinite(old_out) || Float.isInfinite(cur_out))) {
+                str_res = null;
+                obj.addProperty("millis", str_res);
+            } else {
+                res = (cur_millis - old_millis) / (cur_out - old_out) / seconds;
 
-            	if(Float.isNaN(res)) {
-            		res = 0f;
-            	} else {
-            		res = (res < 0) ? 0 : res;
-            	}
-            	obj.addProperty("millis", this.getRound(String.valueOf(res), 100));
+                if (Float.isNaN(res)) {
+                    res = 0f;
+                } else {
+                    res = (res < 0) ? 0 : res;
+                }
+                obj.addProperty("millis", this.getRound(String.valueOf(res), 100));
             }
             newArr.set(i, obj);
         }
         newArr.remove(0);
         return newArr;
-    }*/
+    }
 }
