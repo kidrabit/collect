@@ -137,11 +137,9 @@ $(function(){
 		
 		var form = $('.timepicker-form').serializeArray();
 		
-		if(form[0].value == ""/* || form[1].value == ""*/) {
+		if(form[0].value == "") {
 			alert("유효한 시간을 입력해주세요.");
-		}/*else if(validate(form)<0){
-			alert("알맞은 시간을 입력해주세요.");
-		}*/else{
+		}else{
 			if(repeat != null && repeat != undefined){
 				clearInterval(repeat);
 			}
