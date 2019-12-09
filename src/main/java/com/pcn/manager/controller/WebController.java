@@ -48,41 +48,29 @@ public class WebController {
 
     @Value("${logstash.port}")
     private String logstash_port;
-    
+
     @Value("${conf.file.name}")
     private String conf_file_name;
-    
-    /*
-    @Value("${es.port}")
-    private String es_port;
-    */
+
     @Autowired
     public Shutter shutter;
 
     @Autowired
     public WebService webService;
-    
-    //404
-    /*
-    @RequestMapping(value = "/manager/**")
-    public void viewNotMappingRequest(HttpServletRequest req, HttpServletResponse res,@RequestHeader HttpHeaders headers) throws NoHandlerFoundException {
-    	throw new NoHandlerFoundException("URL not found exception", req.getRequestURL().toString(), headers);
-    }
-    */
 
     @RequestMapping(value = "/manager/start.ajax", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> start(Model model) throws Exception {
-    	shutter = new Shutter();
-    	Map<String, String> msgMap = shutter.engineStart(logstash_os, logstash_dir_path, logstash_port);
+        shutter = new Shutter();
+        Map<String, String> msgMap = shutter.engineStart(logstash_os, logstash_dir_path, logstash_port);
         return msgMap;
     }
 
     @RequestMapping(value = "/manager/shutdown.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> shutDown(Model model)  throws Exception {
-    	shutter = new Shutter();
-    	Map<String, String> msgMap = shutter.engineDown(logstash_os, logstash_port);
+    public Map<String, String> shutDown(Model model) throws Exception {
+        shutter = new Shutter();
+        Map<String, String> msgMap = shutter.engineDown(logstash_os, logstash_port);
         return msgMap;
     }
 
@@ -159,7 +147,7 @@ public class WebController {
 
     @RequestMapping(value = "/popup/writeView")
     public String popupWrtieView(Model model, @RequestParam Map<String, String> paramMap) {
-    	paramMap.put("fileName", conf_file_name);
+        paramMap.put("fileName", conf_file_name);
         model.addAttribute("contents", webService.loadEdit(model, paramMap));
         return "popupWritePlugView";
     }
@@ -191,7 +179,7 @@ public class WebController {
 
     @RequestMapping(value = "/form/writeForm.ajax", method = RequestMethod.POST)
     public String inputForm(Model model, @RequestParam Map<String, String> paramMap) {
-    	paramMap.put("fileName", conf_file_name);
+        paramMap.put("fileName", conf_file_name);
         model.addAttribute("confSection", paramMap.get("confSection"));
         model.addAttribute("formJson", webService.getWriteFormJson(paramMap.get("confSection")));
         model.addAttribute("dataJsonArray", webService.getConfJsonObject(model, paramMap));
@@ -201,7 +189,7 @@ public class WebController {
     @RequestMapping(value = "/manager/writeUiSave.ajax", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> writeUiSave(Model model, @RequestParam Map<String, String> paramMap, HttpServletRequest request) {
-    	paramMap.put("fileName", conf_file_name);
+        paramMap.put("fileName", conf_file_name);
         String[] tabItemNm = request.getParameterValues("tabItemNm");
         webService.writeUiSave(model, paramMap, tabItemNm, request);
         return paramMap;
