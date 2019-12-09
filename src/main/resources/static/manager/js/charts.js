@@ -58,7 +58,6 @@ $(function(){
 			  labels: ['events_out'],
 			  resize: true,
 			  pointSize: 2
-			  //units: 's'
 		});
 		
 		events_emitted_rate_graph = new Morris.Line({
@@ -69,7 +68,6 @@ $(function(){
 			  labels: ['rate'],
 			  resize: true,
 			  pointSize: 2
-			  //units: 's'
 		});
 		
 		even_latency_graph = new Morris.Line({
