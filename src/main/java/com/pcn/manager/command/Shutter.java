@@ -25,241 +25,265 @@ import org.springframework.stereotype.Component;
 */
 @Component
 public class Shutter {
-	
-	private Map<String, String> msgMap; 
-	
-	public Shutter() {
-		msgMap = new HashMap<String, String>();
-	}
+
+    private Map<String, String> msgMap;
+
+    public Shutter() {
+        msgMap = new HashMap<>();
+    }
 
     public Map<String, String> engineStart(String osType, String path, String port) {
-        
-    	String strMsg = "";
+
+        String strMsg = "";
         String pid = "";
         String[] command = null;
         String fSepar = File.separator;
         path = path.replaceAll("\\\\", Matcher.quoteReplacement(File.separator));
-        
-        if(osType.equalsIgnoreCase("win")) {
-        	pid = getWinPID(port);
-        	command = new String[]{"cmd", "/C", path + fSepar + "logstash.bat -f " + path + fSepar + "logstash.conf"};
-        } else {
-        	pid = getLxPID(port);
-        	command = new String[]{"sh", "-c", path + fSepar + "logstash -f " + path + fSepar + "logstash.conf &"};
-        }
-        
-        if("".equalsIgnoreCase(pid)) {
-        	
-        	Process process = null;
-        	InputStreamReader isr = null;
-        	BufferedReader br = null;
 
-	        Runtime run = Runtime.getRuntime();
-	
-	        try {
-	            process = run.exec(command);
-	            
-				isr = new InputStreamReader(process.getInputStream());
-				br = new BufferedReader(isr);
-
-				String line = "";
-				
-				line = br.readLine();
-				
-				while ((line = br.readLine()) != null) {
-				    System.out.println(line);
-				    
-				    if(osType.equalsIgnoreCase("win")) {
-				    	if(line.toUpperCase().contains("SUCCESSFULLY STARTED LOGSTASH")) break;
-				    }
-				}
-				
-				br.close();
-				isr.close();
-				process.destroy();
-				
-				if(!osType.equalsIgnoreCase("win")) Thread.sleep(25000);
-				
-				if(osType.equalsIgnoreCase("win")) {
-					pid = getWinPID(port);
-				} else {
-					pid = getLxPID(port);
-				}
-				
-				if(!"".equalsIgnoreCase(pid)) {
-					strMsg = "엔진 시작";
-				} else {
-					strMsg = "엔진 시작 오류";
-				}
-	
-				br.close();
-				isr.close();
-				process.destroy();
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        } finally {
-				try {
-					if(br != null) br.close();
-					if(isr != null) isr.close();
-					if(process != null) process.destroy();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+        if (osType.equalsIgnoreCase("win")) {
+            pid = getWinPID(port);
+            command = new String[] {"cmd", "/C", path + fSepar + "logstash.bat -f " + path + fSepar + "logstash.conf"};
         } else {
-        	strMsg = "시작중인 엔진 있음";
+            pid = getLxPID(port);
+            command = new String[] {"sh", "-c", path + fSepar + "logstash -f " + path + fSepar + "logstash.conf &"};
         }
-        
+
+        if ("".equalsIgnoreCase(pid)) {
+
+            Process process = null;
+            InputStreamReader isr = null;
+            BufferedReader br = null;
+
+            Runtime run = Runtime.getRuntime();
+
+            try {
+                process = run.exec(command);
+
+                isr = new InputStreamReader(process.getInputStream());
+                br = new BufferedReader(isr);
+
+                String line = "";
+
+                line = br.readLine();
+
+                while ((line = br.readLine()) != null) {
+
+                    if (osType.equalsIgnoreCase("win")) {
+                        if (line.toUpperCase().contains("SUCCESSFULLY STARTED LOGSTASH")) {
+                            break;
+                        }
+                    }
+                }
+
+                br.close();
+                isr.close();
+                process.destroy();
+
+                if (!osType.equalsIgnoreCase("win")) {
+                    Thread.sleep(25000);
+                }
+
+                if (osType.equalsIgnoreCase("win")) {
+                    pid = getWinPID(port);
+                } else {
+                    pid = getLxPID(port);
+                }
+
+                if (!"".equalsIgnoreCase(pid)) {
+                    strMsg = "엔진 시작";
+                } else {
+                    strMsg = "엔진 시작 오류";
+                }
+
+                br.close();
+                isr.close();
+                process.destroy();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (br != null) {
+                        br.close();
+                    }
+                    if (isr != null) {
+                        isr.close();
+                    }
+                    if (process != null) {
+                        process.destroy();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            strMsg = "시작중인 엔진 있음";
+        }
+
         System.out.println(strMsg);
         msgMap.put("engineMsg", strMsg);
-        
+
         return msgMap;
     }
 
     public Map<String, String> engineDown(String osType, String port) {
-    	
-    	String strMsg = "";
+
+        String strMsg = "";
         String pid = "";
         String[] command = null;
-        
-        if(osType.equalsIgnoreCase("win")) {
-        	pid = getWinPID(port);
-        	command = new String[]{"cmd", "/C", "taskkill /f /pid " + pid};
-        } else {
-        	pid = getLxPID(port);
-        	command = new String[]{"sh", "-c", "kill -9 " + pid};
-        }
-        
-        if(!"".equalsIgnoreCase(pid)) {
-        	
-        	Process process = null;
-        	InputStreamReader isr = null;
-        	BufferedReader br = null;
-        
-	        Runtime run = Runtime.getRuntime();
-	
-			try {
-				process = run.exec(command);
-				
-				isr = new InputStreamReader(process.getInputStream());
-				br = new BufferedReader(isr);
 
-				String line = "";
-				
-				while ((line = br.readLine()) != null) {
-				    System.out.println(line);
-				}
-				
-				strMsg = "엔진 다운";
-				
-				br.close();
-				isr.close();
-				process.destroy();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				try {
-					if(br != null) br.close();
-					if(isr != null) isr.close();
-					if(process != null) process.destroy();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+        if (osType.equalsIgnoreCase("win")) {
+            pid = getWinPID(port);
+            command = new String[] {"cmd", "/C", "taskkill /f /pid " + pid};
         } else {
-        	strMsg = "시작중인 엔진이 없음";
+            pid = getLxPID(port);
+            command = new String[] {"sh", "-c", "kill -9 " + pid};
         }
-        
+
+        if (!"".equalsIgnoreCase(pid)) {
+
+            Process process = null;
+            InputStreamReader isr = null;
+            BufferedReader br = null;
+
+            Runtime run = Runtime.getRuntime();
+
+            try {
+                process = run.exec(command);
+
+                isr = new InputStreamReader(process.getInputStream());
+                br = new BufferedReader(isr);
+
+                String line = "";
+
+                while ((line = br.readLine()) != null) {
+                    System.out.println(line);
+                }
+
+                strMsg = "엔진 다운";
+
+                br.close();
+                isr.close();
+                process.destroy();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (br != null) {
+                        br.close();
+                    }
+                    if (isr != null) {
+                        isr.close();
+                    }
+                    if (process != null) {
+                        process.destroy();
+                    }
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            strMsg = "시작중인 엔진이 없음";
+        }
+
         System.out.println(strMsg);
         msgMap.put("engineMsg", strMsg);
-        
+
         return msgMap;
     }
 
     public String getWinPID(String port) {
-    	
+
         String[] command = {"cmd", "/C", "netstat -ano | findstr " + port};
-        
-		Process process = null;
-		InputStreamReader isr = null;
-		BufferedReader br = null;
-        
-		String pid = "";
+
+        Process process = null;
+        InputStreamReader isr = null;
+        BufferedReader br = null;
+
+        String pid = "";
         Runtime run = Runtime.getRuntime();
 
         try {
-			process = run.exec(command);
-			isr = new InputStreamReader(process.getInputStream());
-			br = new BufferedReader(isr);
-			
-			String line = "";
-			
+            process = run.exec(command);
+            isr = new InputStreamReader(process.getInputStream());
+            br = new BufferedReader(isr);
+
+            String line = "";
+
             while ((line = br.readLine()) != null) {
-            	line = line.replaceAll("\\s+", " ");
-            	pid = line.split(" ")[5].trim();
+                line = line.replaceAll("\\s+", " ");
+                pid = line.split(" ")[5].trim();
             }
-            
-			br.close();
-			isr.close();
-			process.destroy();
+
+            br.close();
+            isr.close();
+            process.destroy();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-			try {
-				if(br != null) br.close();
-				if(isr != null) isr.close();
-				if(process != null) process.destroy();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            try {
+                if (br != null) {
+                    br.close();
+                }
+                if (isr != null) {
+                    isr.close();
+                }
+                if (process != null) {
+                    process.destroy();
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
-        
+
         return pid;
     }
-    
+
     public String getLxPID(String port) {
-    	
-    	String[] command = {"sh", "-c", "netstat -lntp|grep " + port + "|awk '{print $7}'"};
-    	
-		Process process = null;
-		InputStreamReader isr = null;
-		BufferedReader br = null;
-		
+
+        String[] command = {"sh", "-c", "netstat -lntp|grep " + port + "|awk '{print $7}'"};
+
+        Process process = null;
+        InputStreamReader isr = null;
+        BufferedReader br = null;
+
         Runtime run = Runtime.getRuntime();
         String pid = "";
-        	
-		try {
-			process = run.exec(command);
-			isr = new InputStreamReader(process.getInputStream());
-			br = new BufferedReader(isr);
-			
-			String line = "";
-			
-			while((line = br.readLine()) != null) {
-			   pid = line.trim().split("/")[0];
-			}
-			
-			br.close();
-			isr.close();
-			process.destroy();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				if(br != null) br.close();
-				if(isr != null) isr.close();
-				if(process != null) process.destroy();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-        
+
+        try {
+            process = run.exec(command);
+            isr = new InputStreamReader(process.getInputStream());
+            br = new BufferedReader(isr);
+
+            String line = "";
+
+            while ((line = br.readLine()) != null) {
+                pid = line.trim().split("/")[0];
+            }
+
+            br.close();
+            isr.close();
+            process.destroy();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null) {
+                    br.close();
+                }
+                if (isr != null) {
+                    isr.close();
+                }
+                if (process != null) {
+                    process.destroy();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         return pid;
     }
 }
