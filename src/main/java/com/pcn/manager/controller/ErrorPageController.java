@@ -73,16 +73,13 @@ public class ErrorPageController implements ErrorController {
         String originalURL = urlPathHelper.getOriginatingRequestUri(req);
         str_path = originalURL;
         
-        //String contentType = req.getHeader("Content-Type");
-        
+
         HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(statusCode.toString()));
         model.addAttribute("code", statusCode.toString());
         model.addAttribute("msg", httpStatus.getReasonPhrase());
-        //model.addAttribute("timestamp", sdf.format(new Date()));
         
         //ajax일 경우
         if(str_path.lastIndexOf(".ajax") > -1) {
-        //if(MediaType.APPLICATION_JSON_VALUE.equals(contentType)) {
             str_path = "ajax_error";
         }else {
         	str_path = "error";

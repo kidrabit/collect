@@ -28,23 +28,7 @@ public class ExceptionRestController {
 	
 	Logger logger = LogManager.getLogger(getClass());
 	
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"); 
-	
-	/*
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Object> constraintViolationException(ConstraintViolationException ex) {
-		
-		System.out.println("constraintViolationExceptionconstraintViolationExceptionconstraintViolationExceptionconstraintViolationException");
-		
-		Map<String, Object> responseBody = new HashMap<String, Object>();
-		responseBody.put("timestamp", new Date());
-		responseBody.put("status", HttpStatus.BAD_REQUEST.value());
-		responseBody.put("message", "Internal Server Error");
-		
-        return new ResponseEntity<Object>(responseBody, HttpStatus.BAD_REQUEST);
-    }
-    */
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 	
 	@ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoHandlerFoundException.class)

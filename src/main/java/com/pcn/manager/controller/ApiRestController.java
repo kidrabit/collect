@@ -77,9 +77,6 @@ public class ApiRestController {
      * @param string
      * @param string2
     */
-
-    /*
-     * Event */
     @GetMapping("/eventGet")
     public Object EventChartCall(@RequestParam Map<String, String> paraMap) {
         ApiCallService api = new ApiCallService();
